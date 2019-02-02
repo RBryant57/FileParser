@@ -32,6 +32,8 @@ namespace FileParser.Core
             {
                 CreateFile(item);
             }
+            if (_file.Ender == null)
+                throw new InvalidFileException(Constants.NO_ENDER_RECORD_MESSAGE);
 
             var serializerSettings = new JsonSerializerSettings
             {
@@ -45,35 +47,35 @@ namespace FileParser.Core
         private void CreateFile(string item)
         {
             var contents = item.Split(',').ToList();
-            var tag = contents[0].RemoveDoubleQuotes();
+            var tag = contents[0].RemoveDoubleQuotes().ToLower();
 
             switch (tag)
             {
-                case "F":
+                case "f":
                     if (_file != null)
                         throw new InvalidFileException(Constants.MORE_THAN_ONE_FILE_MESSAGE);
 
                     _file = new File(contents);
                     break;
-                case "E":
+                case "e":
                     _file.Ender = new Ender(contents);
                     break;
-                case "O":
+                case "o":
                     _file.Orders.Add(new Order(contents));
                     break;
-                case "B":
+                case "b":
                     if (_file.Orders.Last().Buyer != null)
                         throw new InvalidFileException(Constants.MORE_THAN_ONE_BUYER_MESSAGE);
 
                     _file.Orders.Last().Buyer = new Buyer(contents);
                     break;
-                case "T":
+                case "t":
                     if (_file.Orders.Last().Timings != null)
                         throw new InvalidFileException(Constants.MORE_THAN_ONE_TIMING_MESSAGE);
 
                     _file.Orders.Last().Timings = new Timing(contents);
                     break;
-                case "L":
+                case "l":
                     _file.Orders.Last().Items.Add(new LineItem(contents));
                     break;
                 case "":

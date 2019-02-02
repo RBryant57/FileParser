@@ -31,6 +31,16 @@ namespace FileParser.Tests
         }
 
         [TestMethod]
+        public void ValidFileWithRandomCaseShouldGenerateJson()
+        {
+            var file = _testDirectory + "ValidRandomCaseFile.txt";
+            var parser = new Parser();
+
+            var json = parser.CreateJson(file);
+            Assert.IsFalse(String.IsNullOrEmpty(json));
+        }
+
+        [TestMethod]
         public void InvalidContentsShouldNotGenerateJson()
         {
             var file = _testDirectory + "InvalidFile.txt";
@@ -53,6 +63,31 @@ namespace FileParser.Tests
 
             Assert.IsTrue(String.IsNullOrEmpty(json));
             Assert.IsFalse(String.IsNullOrEmpty(errorMessage));
+        }
+
+        [TestMethod]
+        public void NoEnderShouldNotGenerateJson()
+        {
+            var file = _testDirectory + "InvalidFileNoEnder.txt";
+            var parser = new Parser();
+            var json = String.Empty;
+            var errorMessage = String.Empty;
+
+            try
+            {
+                json = parser.CreateJson(file);
+            }
+            catch (InvalidFileException ex)
+            {
+                errorMessage = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+            }
+
+            Assert.IsTrue(String.IsNullOrEmpty(json));
+            Assert.AreEqual(errorMessage, Constants.NO_ENDER_RECORD_MESSAGE);
         }
 
         [TestMethod]

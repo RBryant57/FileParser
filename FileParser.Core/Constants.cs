@@ -17,5 +17,6 @@ namespace FileParser.Core
         public const string MALFORMED_ITEM_MESSAGE = "The line item record is malformed.";
         public const string MALFORMED_ORDER_MESSAGE = "The order record is malformed.";
         public const string MALFORMED_TIMING_MESSAGE = "The timing record is malformed.";
+        public const string NO_ENDER_RECORD_MESSAGE = "File has no ender record.";
     }
 }

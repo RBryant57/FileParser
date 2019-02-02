@@ -8,9 +8,12 @@ namespace FileParser.Core
 {
     public static class FileParserStringExtensions
     {
-        public static string RemoveDoubleQuotes(this String str)
+        public static string RemoveDoubleQuotes(this String str, bool trim = true)
         {
-            return str.Replace("\"", "").Trim();
+            if (trim)
+                return str.Replace("\"", "").Trim();
+            else
+                return str.Replace("\"", "");
         }
     }
 }
