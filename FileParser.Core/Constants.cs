@@ -8,6 +8,7 @@ namespace FileParser.Core
 {
     public class Constants
     {
+        public const string MORE_THAN_ONE_FILE_MESSAGE = "Only one file is allowed.";
         public const string MORE_THAN_ONE_BUYER_MESSAGE = "Only one buyer is allowed per order.";
         public const string MORE_THAN_ONE_TIMING_MESSAGE = "Only one timing is allowed per order.";
         public const string MALFORMED_BUYER_MESSAGE = "The buyer record is malformed.";

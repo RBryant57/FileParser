@@ -8,12 +8,12 @@ namespace FileParser.Tests
     [TestClass]
     public class FileParserTest
     {
-        private string testDirectory = ConfigurationManager.AppSettings.Get("TestFileDirectory");
+        private readonly string _testDirectory = ConfigurationManager.AppSettings.Get("TestFileDirectory");
 
         [TestMethod]
         public void ValidFileShouldGenerateJson()
         {
-            var file = testDirectory + "ValidFile.txt";
+            var file = _testDirectory + "ValidFile.txt";
             var parser = new Parser();
 
             var json = parser.CreateJson(file);
@@ -21,9 +21,69 @@ namespace FileParser.Tests
         }
 
         [TestMethod]
-        public void MoreThanTwoBuyersOnOrderShouldNotGenerateJson()
+        public void ValidFileWithBlankLinesShouldGenerateJson()
         {
-            var file = testDirectory + "InvalidFileTwoB.txt";
+            var file = _testDirectory + "ValidBlankFile.txt";
+            var parser = new Parser();
+
+            var json = parser.CreateJson(file);
+            Assert.IsFalse(String.IsNullOrEmpty(json));
+        }
+
+        [TestMethod]
+        public void InvalidContentsShouldNotGenerateJson()
+        {
+            var file = _testDirectory + "InvalidFile.txt";
+            var parser = new Parser();
+            var json = String.Empty;
+            var errorMessage = String.Empty;
+
+            try
+            {
+                json = parser.CreateJson(file);
+            }
+            catch (InvalidFileException ex)
+            {
+                errorMessage = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+            }
+
+            Assert.IsTrue(String.IsNullOrEmpty(json));
+            Assert.IsFalse(String.IsNullOrEmpty(errorMessage));
+        }
+
+        [TestMethod]
+        public void MoreThanOneFileShouldNotGenerateJson()
+        {
+            var file = _testDirectory + "InvalidFileTwoFile.txt";
+            var parser = new Parser();
+            var json = String.Empty;
+            var errorMessage = String.Empty;
+
+            try
+            {
+                json = parser.CreateJson(file);
+            }
+            catch (InvalidFileException ex)
+            {
+                errorMessage = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+            }
+
+            Assert.IsTrue(String.IsNullOrEmpty(json));
+            Assert.AreEqual(errorMessage, Constants.MORE_THAN_ONE_FILE_MESSAGE);
+        }
+
+        [TestMethod]
+        public void MoreThanOneBuyersOnOrderShouldNotGenerateJson()
+        {
+            var file = _testDirectory + "InvalidFileTwoB.txt";
             var parser = new Parser();
             var json = String.Empty;
             var errorMessage = String.Empty;
@@ -46,9 +106,9 @@ namespace FileParser.Tests
         }
 
         [TestMethod]
-        public void MoreThanTwoTimingsOnOrderShouldNotGenerateJson()
+        public void MoreThanOneTimingsOnOrderShouldNotGenerateJson()
         {
-            var file = testDirectory + "InvalidFileTwoT.txt";
+            var file = _testDirectory + "InvalidFileTwoT.txt";
             var parser = new Parser();
             var json = String.Empty;
             var errorMessage = String.Empty;
@@ -73,7 +133,7 @@ namespace FileParser.Tests
         [TestMethod]
         public void InvalidBuyerShouldNotGenerateJson()
         {
-            var file = testDirectory + "InvalidBuyerFile.txt";
+            var file = _testDirectory + "InvalidBuyerFile.txt";
             var parser = new Parser();
             var json = String.Empty;
             var errorMessage = String.Empty;
@@ -98,7 +158,7 @@ namespace FileParser.Tests
         [TestMethod]
         public void InvalidEnderShouldNotGenerateJson()
         {
-            var file = testDirectory + "InvalidEnderFile.txt";
+            var file = _testDirectory + "InvalidEnderFile.txt";
             var parser = new Parser();
             var json = String.Empty;
             var errorMessage = String.Empty;
@@ -123,7 +183,7 @@ namespace FileParser.Tests
         [TestMethod]
         public void InvalidFileShouldNotGenerateJson()
         {
-            var file = testDirectory + "InvalidFileFile.txt";
+            var file = _testDirectory + "InvalidFileFile.txt";
             var parser = new Parser();
             var json = String.Empty;
             var errorMessage = String.Empty;
@@ -148,7 +208,7 @@ namespace FileParser.Tests
         [TestMethod]
         public void InvalidLineItemShouldNotGenerateJson()
         {
-            var file = testDirectory + "InvalidLineItemFile.txt";
+            var file = _testDirectory + "InvalidLineItemFile.txt";
             var parser = new Parser();
             var json = String.Empty;
             var errorMessage = String.Empty;
@@ -173,7 +233,7 @@ namespace FileParser.Tests
         [TestMethod]
         public void InvalidOrderShouldNotGenerateJson()
         {
-            var file = testDirectory + "InvalidOrderFile.txt";
+            var file = _testDirectory + "InvalidOrderFile.txt";
             var parser = new Parser();
             var json = String.Empty;
             var errorMessage = String.Empty;
@@ -198,7 +258,7 @@ namespace FileParser.Tests
         [TestMethod]
         public void InvalidTimingShouldNotGenerateJson()
         {
-            var file = testDirectory + "InvalidTimingFile.txt";
+            var file = _testDirectory + "InvalidTimingFile.txt";
             var parser = new Parser();
             var json = String.Empty;
             var errorMessage = String.Empty;

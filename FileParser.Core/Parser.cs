@@ -27,6 +27,7 @@ namespace FileParser.Core
                 }
             }
 
+            // Need to get rid of this. Streaming is already happening.
             foreach (var item in list)
             {
                 CreateFile(item);
@@ -49,6 +50,9 @@ namespace FileParser.Core
             switch (tag)
             {
                 case "F":
+                    if (_file != null)
+                        throw new InvalidFileException(Constants.MORE_THAN_ONE_FILE_MESSAGE);
+
                     _file = new File(contents);
                     break;
                 case "E":
@@ -71,6 +75,8 @@ namespace FileParser.Core
                     break;
                 case "L":
                     _file.Orders.Last().Items.Add(new LineItem(contents));
+                    break;
+                case "":
                     break;
                 default:
                     throw new InvalidFileException();
