@@ -22,18 +22,12 @@ namespace FileParser.Core
                     string line;
                     while ((line = streamReader.ReadLine()) != null)
                     {
-                        list.Add(line);
+                        CreateEntry(line);
                     }
+                    if (_file.Ender == null)
+                        throw new InvalidFileException(Constants.NO_ENDER_RECORD_MESSAGE);
                 }
-            }
-
-            // Need to get rid of this. Streaming is already happening.
-            foreach (var item in list)
-            {
-                CreateFile(item);
-            }
-            if (_file.Ender == null)
-                throw new InvalidFileException(Constants.NO_ENDER_RECORD_MESSAGE);
+            };
 
             var serializerSettings = new JsonSerializerSettings
             {
@@ -44,7 +38,7 @@ namespace FileParser.Core
             return json;
         }
 
-        private void CreateFile(string item)
+        private void CreateEntry(string item)
         {
             var contents = item.Split(',').ToList();
             var tag = contents[0].RemoveDoubleQuotes().ToLower();
@@ -81,7 +75,7 @@ namespace FileParser.Core
                 case "":
                     break;
                 default:
-                    throw new InvalidFileException();
+                    throw new InvalidFileException(Constants.UNRECOGNIZED_TAG_MESSAGE);
             }
         }
     }
