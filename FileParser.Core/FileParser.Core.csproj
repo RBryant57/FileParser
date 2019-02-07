@@ -48,7 +48,7 @@
     <Compile Include="Ender.cs" />
     <Compile Include="File.cs" />
     <Compile Include="FileParserStringExtensions.cs" />
-    <Compile Include="InvalidFileException.cs" />
+    <Compile Include="InvalidOrderFileException.cs" />
     <Compile Include="LineItem.cs" />
     <Compile Include="LowercaseContractResolver.cs" />
     <Compile Include="Order.cs" />

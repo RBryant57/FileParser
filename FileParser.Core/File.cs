@@ -17,7 +17,7 @@ namespace FileParser
         public File(List<string> input)
         {
             if (input.Count != 3)
-                throw new InvalidFileException(Constants.MALFORMED_FILE_MESSAGE);
+                throw new InvalidOrderFileException(Constants.MALFORMED_FILE_MESSAGE);
 
             Date = input[1].RemoveDoubleQuotes(); 
             Type = input[2].RemoveDoubleQuotes(); 

@@ -19,7 +19,7 @@ namespace FileParser
         public Order(List<string> input)
         {
             if (input.Count != 4)
-                throw new InvalidFileException(Constants.MALFORMED_ORDER_MESSAGE);
+                throw new InvalidOrderFileException(Constants.MALFORMED_ORDER_MESSAGE);
 
             Date = input[1].RemoveDoubleQuotes();
             Code = input[2].RemoveDoubleQuotes();

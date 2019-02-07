@@ -16,7 +16,7 @@ namespace FileParser
         public Buyer(List<string> input)
         {
             if (input.Count != 4)
-                throw new InvalidFileException(Constants.MALFORMED_BUYER_MESSAGE);
+                throw new InvalidOrderFileException(Constants.MALFORMED_BUYER_MESSAGE);
 
             Name = input[1].RemoveDoubleQuotes();
             Address = input[2].RemoveDoubleQuotes();

@@ -18,6 +18,7 @@ namespace FileParser.Core
         public const string MALFORMED_ORDER_MESSAGE = "The order record is malformed.";
         public const string MALFORMED_TIMING_MESSAGE = "The timing record is malformed.";
         public const string NO_ENDER_RECORD_MESSAGE = "File has no ender record.";
+        public const string MORE_THAN_ONE_ENDER_RECORD_MESSAGE = "File already has an ender record.";
         public const string UNRECOGNIZED_TAG_MESSAGE = "The record type is not recognized.";
     }
 }

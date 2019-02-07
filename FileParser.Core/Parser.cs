@@ -14,7 +14,6 @@ namespace FileParser.Core
 
         public string CreateJson(string fileName)
         {
-            var list = new List<string>();
             using (var fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
                 using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
@@ -22,10 +21,12 @@ namespace FileParser.Core
                     string line;
                     while ((line = streamReader.ReadLine()) != null)
                     {
+                        if (_file?.Ender != null)
+                            throw new InvalidOrderFileException(Constants.MORE_THAN_ONE_ENDER_RECORD_MESSAGE);
                         CreateEntry(line);
                     }
                     if (_file.Ender == null)
-                        throw new InvalidFileException(Constants.NO_ENDER_RECORD_MESSAGE);
+                        throw new InvalidOrderFileException(Constants.NO_ENDER_RECORD_MESSAGE);
                 }
             };
 
@@ -47,7 +48,7 @@ namespace FileParser.Core
             {
                 case "f":
                     if (_file != null)
-                        throw new InvalidFileException(Constants.MORE_THAN_ONE_FILE_MESSAGE);
+                        throw new InvalidOrderFileException(Constants.MORE_THAN_ONE_FILE_MESSAGE);
 
                     _file = new File(contents);
                     break;
@@ -59,13 +60,13 @@ namespace FileParser.Core
                     break;
                 case "b":
                     if (_file.Orders.Last().Buyer != null)
-                        throw new InvalidFileException(Constants.MORE_THAN_ONE_BUYER_MESSAGE);
+                        throw new InvalidOrderFileException(Constants.MORE_THAN_ONE_BUYER_MESSAGE);
 
                     _file.Orders.Last().Buyer = new Buyer(contents);
                     break;
                 case "t":
                     if (_file.Orders.Last().Timings != null)
-                        throw new InvalidFileException(Constants.MORE_THAN_ONE_TIMING_MESSAGE);
+                        throw new InvalidOrderFileException(Constants.MORE_THAN_ONE_TIMING_MESSAGE);
 
                     _file.Orders.Last().Timings = new Timing(contents);
                     break;
@@ -75,7 +76,7 @@ namespace FileParser.Core
                 case "":
                     break;
                 default:
-                    throw new InvalidFileException(Constants.UNRECOGNIZED_TAG_MESSAGE);
+                    throw new InvalidOrderFileException(Constants.UNRECOGNIZED_TAG_MESSAGE);
             }
         }
     }

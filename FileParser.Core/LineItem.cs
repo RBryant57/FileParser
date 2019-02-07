@@ -15,7 +15,7 @@ namespace FileParser
         public LineItem(List<string> input)
         {
             if (input.Count != 3)
-                throw new InvalidFileException(Constants.MALFORMED_ITEM_MESSAGE);
+                throw new InvalidOrderFileException(Constants.MALFORMED_ITEM_MESSAGE);
 
             SKU = input[1].RemoveDoubleQuotes();
             Quantity = input[2].RemoveDoubleQuotes();

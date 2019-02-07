@@ -18,7 +18,7 @@ namespace FileParser
         public Timing(List<string> input)
         {
             if (input.Count != 6)
-                throw new InvalidFileException(Constants.MALFORMED_TIMING_MESSAGE);
+                throw new InvalidOrderFileException(Constants.MALFORMED_TIMING_MESSAGE);
 
             Start = input[1].RemoveDoubleQuotes();
             Stop = input[2].RemoveDoubleQuotes();

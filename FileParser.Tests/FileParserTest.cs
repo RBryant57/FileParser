@@ -52,7 +52,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }
@@ -77,7 +77,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }
@@ -102,7 +102,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }
@@ -113,6 +113,31 @@ namespace FileParser.Tests
 
             Assert.IsTrue(String.IsNullOrEmpty(json));
             Assert.AreEqual(errorMessage, Constants.MORE_THAN_ONE_FILE_MESSAGE);
+        }
+
+        [TestMethod]
+        public void MoreThanOneEnderInFileShouldNotGenerateJson()
+        {
+            var file = _testDirectory + "InvalidFileTwoEnd.txt";
+            var parser = new Parser();
+            var json = String.Empty;
+            var errorMessage = String.Empty;
+
+            try
+            {
+                json = parser.CreateJson(file);
+            }
+            catch (InvalidOrderFileException ex)
+            {
+                errorMessage = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+            }
+
+            Assert.IsTrue(String.IsNullOrEmpty(json));
+            Assert.AreEqual(errorMessage, Constants.MORE_THAN_ONE_ENDER_RECORD_MESSAGE);
         }
 
         [TestMethod]
@@ -127,7 +152,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }
@@ -152,7 +177,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }
@@ -177,7 +202,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }
@@ -202,7 +227,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }
@@ -227,7 +252,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }
@@ -252,7 +277,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }
@@ -277,7 +302,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }
@@ -302,7 +327,7 @@ namespace FileParser.Tests
             {
                 json = parser.CreateJson(file);
             }
-            catch (InvalidFileException ex)
+            catch (InvalidOrderFileException ex)
             {
                 errorMessage = ex.Message;
             }

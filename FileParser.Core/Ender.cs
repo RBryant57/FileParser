@@ -16,7 +16,7 @@ namespace FileParser
         public Ender(List<string> input)
         {
             if (input.Count != 4)
-                throw new InvalidFileException(Constants.MALFORMED_ENDER_MESSAGE);
+                throw new InvalidOrderFileException(Constants.MALFORMED_ENDER_MESSAGE);
 
             Process = input[1].RemoveDoubleQuotes();
             Paid = input[2].RemoveDoubleQuotes();
